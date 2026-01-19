@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergence - Principia Fractalis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #1e1b4b; color: #a78bfa; min-height: 100vh; }
+        .nav-bar { background: rgba(30, 27, 75, 0.95); border-bottom: 2px solid #a78bfa; padding: 15px 30px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(10px); }
+        .nav-title { font-size: 1.5em; font-weight: bold; text-shadow: 0 0 10px #a78bfa; color: #ffd700; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: #a78bfa; text-decoration: none; padding: 10px 20px; border: 2px solid #a78bfa; border-radius: 5px; transition: all 0.3s; }
+        .nav-links a:hover { background: rgba(167, 139, 250, 0.3); box-shadow: 0 0 15px #a78bfa; }
+        .hero { text-align: center; padding: 80px 20px; background: radial-gradient(circle at center, #2d1b4e 0%, #1e1b4b 70%, #000 100%); }
+        .hero h1 { font-size: 4em; color: #ffd700; text-shadow: 0 0 30px rgba(255, 215, 0, 0.5); margin-bottom: 20px; }
+        .hero .subtitle { font-size: 1.5em; color: #a78bfa; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .section { margin-bottom: 60px; }
+        .section h2 { font-size: 2em; color: #ffd700; text-align: center; margin-bottom: 30px; }
+        .section p { color: #a78bfa; line-height: 1.8; text-align: center; max-width: 800px; margin: 0 auto 30px; }
+        .guardians-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; }
+        .guardian-card { background: linear-gradient(135deg, rgba(30, 27, 75, 0.95), rgba(50, 30, 100, 0.9)); border: 2px solid; border-radius: 12px; padding: 25px; transition: all 0.3s ease; cursor: pointer; }
+        .guardian-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(167, 139, 250, 0.3); }
+        .guardian-card.phi { border-color: #ffd700; }
+        .guardian-card.sqrt2 { border-color: #00ff88; }
+        .guardian-card.pi { border-color: #00bfff; }
+        .guardian-card.alpha { border-color: #ff6b6b; }
+        .guardian-card.ch2 { border-color: #ff88ff; }
+        .guardian-card.d3 { border-color: #ffaa44; }
+        .guardian-symbol { font-size: 3em; font-weight: bold; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+        .guardian-name { font-size: 1.2em; font-weight: bold; margin-bottom: 8px; }
+        .guardian-value { font-family: 'JetBrains Mono', monospace; font-size: 1.1em; margin-bottom: 15px; }
+        .guardian-role { font-size: 0.95em; color: #a78bfa; line-height: 1.6; }
+        .guardian-details { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .guardian-card.expanded .guardian-details { max-height: 500px; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(167, 139, 250, 0.3); }
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin: 40px 0; }
+        .link-card { background: rgba(0, 0, 0, 0.5); border: 2px solid #a78bfa; border-radius: 10px; padding: 30px; text-align: center; transition: all 0.3s; text-decoration: none; display: block; }
+        .link-card:hover { background: rgba(167, 139, 250, 0.2); box-shadow: 0 0 20px rgba(167, 139, 250, 0.4); transform: translateY(-3px); }
+        .link-card h3 { color: #ffd700; margin-bottom: 15px; font-size: 1.3em; }
+        .link-card p { color: #a78bfa; font-size: 0.95em; line-height: 1.6; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
+        .stat-box { background: rgba(124, 58, 237, 0.2); padding: 20px; border-left: 3px solid #a78bfa; border-radius: 5px; text-align: center; }
+        .stat-label { color: #7c3aed; font-size: 0.9em; margin-bottom: 8px; }
+        .stat-value { color: #ffd700; font-size: 1.5em; font-weight: bold; font-family: 'JetBrains Mono', monospace; }
+        .emergence-visual { width: 100%; height: 400px; background: radial-gradient(circle at center, #2d1b4e 0%, #000 100%); border: 2px solid #a78bfa; border-radius: 10px; position: relative; overflow: hidden; margin: 30px 0; }
+        .footer { text-align: center; padding: 40px 20px; border-top: 2px solid #a78bfa; background: rgba(0, 0, 0, 0.3); }
+        .footer p { color: #7c3aed; margin-bottom: 10px; }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5em; } .nav-bar { flex-direction: column; gap: 15px; } }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-title">Principia Fractalis</div>
+        <div class="nav-links">
+            <a href="https://fractaldevteam.github.io/Principia-Fractalis/">Main Site</a>
+            <a href="https://fractaldevteam.github.io/turing/">P vs NP Explorer</a>
+            <a href="https://github.com/FractalDevTeam">GitHub</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Emergence</h1>
+        <p class="subtitle">Data and Research from Pablo Cohen's Work on Computational Complexity and Fractal Mathematics</p>
+    </section>
+
+    <div class="container">
+        <section class="section">
+            <h2>Core Metrics</h2>
+            <div class="stats-grid">
+                <div class="stat-box"><div class="stat-label">Spectral Gap</div><div class="stat-value">0.0540</div></div>
+                <div class="stat-box"><div class="stat-label">P-Class Resonance</div><div class="stat-value">sqrt(2)</div></div>
+                <div class="stat-box"><div class="stat-label">NP-Class Resonance</div><div class="stat-value">phi + 1/4</div></div>
+                <div class="stat-box"><div class="stat-label">CH2 Threshold</div><div class="stat-value">0.95398</div></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>The Six Guardians</h2>
+            <p>These mathematical constants form the foundational pillars of the spectral analysis framework.</p>
+            <div class="guardians-grid">
+                <div class="guardian-card phi" onclick="this.classList.toggle('expanded')">
+                    <div class="guardian-symbol" style="color: #ffd700;">phi</div>
+                    <div class="guardian-name" style="color: #ffd700;">The Golden Guardian</div>
+                    <div class="guardian-value" style="color: #ffd700;">1.6180339887...</div>
+                    <div class="guardian-role"><strong>Role:</strong> Defines NP-class resonance alpha_NP = phi + 1/4</div>
+                    <div class="guardian-details"><div style="color: #a78bfa;">The golden ratio emerges in recursive structures - precisely what NP-complete problems exhibit through certificate branching. IBM Quantum tests confirm NP problems cluster at coherence values proportional to phi.</div></div>
+                </div>
+                <div class="guardian-card sqrt2" onclick="this.classList.toggle('expanded')">
+                    <div class="guardian-symbol" style="color: #00ff88;">sqrt(2)</div>
+                    <div class="guardian-name" style="color: #00ff88;">The Polynomial Guardian</div>
+                    <div class="guardian-value" style="color: #00ff88;">1.4142135623...</div>
+                    <div class="guardian-role"><strong>Role:</strong> Defines P-class resonance alpha_P = sqrt(2)</div>
+                    <div class="guardian-details"><div style="color: #a78bfa;">Represents simplest algebraic irrationality - one constructible with finite operations. P-class problems follow single deterministic paths, never requiring the infinite recursion that phi embodies.</div></div>
+                </div>
+                <div class="guardian-card pi" onclick="this.classList.toggle('expanded')">
+                    <div class="guardian-symbol" style="color: #00bfff;">pi</div>
+                    <div class="guardian-name" style="color: #00bfff;">The Circle Guardian</div>
+                    <div class="guardian-value" style="color: #00bfff;">3.1415926535...</div>
+                    <div class="guardian-role"><strong>Role:</strong> Scales eigenvalue formula lambda_0 = pi/(10*alpha)</div>
+                    <div class="guardian-details"><div style="color: #a78bfa;">Pi bridges quantum Hamiltonians - wave functions oscillate in circular harmonics. Ground state energy depends on pi as the fundamental period of oscillation.</div></div>
+                </div>
+                <div class="guardian-card alpha" onclick="this.classList.toggle('expanded')">
+                    <div class="guardian-symbol" style="color: #ff6b6b;">alpha</div>
+                    <div class="guardian-name" style="color: #ff6b6b;">The Resonance Guardian</div>
+                    <div class="guardian-value" style="color: #ff6b6b;">alpha_P=1.414 | alpha_NP=1.868</div>
+                    <div class="guardian-role"><strong>Role:</strong> Encodes complexity class structure in Hamiltonians</div>
+                    <div class="guardian-details"><div style="color: #a78bfa;">These are the "fingerprints" of complexity classes. Alpha determines how the Hamiltonian operator encodes problem structure - the resonance frequency of the computational quantum state.</div></div>
+                </div>
+                <div class="guardian-card ch2" onclick="this.classList.toggle('expanded')">
+                    <div class="guardian-symbol" style="color: #ff88ff;">CH2</div>
+                    <div class="guardian-name" style="color: #ff88ff;">The Coherence Guardian</div>
+                    <div class="guardian-value" style="color: #ff88ff;">Threshold: 0.95398265359</div>
+                    <div class="guardian-role"><strong>Role:</strong> Boundary separating P from NP in coherence space</div>
+                    <div class="guardian-details"><div style="color: #a78bfa;">Measures how "crystallized" a problem's solution structure is. P-class: CH2 ~ 0.95. NP-complete: CH2 ~ 0.9954. The gap is statistically significant (p < 0.001).</div></div>
+                </div>
+                <div class="guardian-card d3" onclick="this.classList.toggle('expanded')">
+                    <div class="guardian-symbol" style="color: #ffaa44;">D3</div>
+                    <div class="guardian-name" style="color: #ffaa44;">The Fractal Guardian</div>
+                    <div class="guardian-value" style="color: #ffaa44;">D3(n) = Sum of base-3 digits</div>
+                    <div class="guardian-role"><strong>Role:</strong> Provides oracle-independent structure</div>
+                    <div class="guardian-details"><div style="color: #a78bfa;">The key to bypassing relativization. D3 is defined purely in terms of base-3 representation - no reference to computation. D3(n) is the same with or without an oracle, making spectral gaps derived from it oracle-independent.</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Explore the Framework</h2>
+            <div class="links-grid">
+                <a href="https://fractaldevteam.github.io/Principia-Fractalis/" class="link-card">
+                    <h3>Principia Fractalis</h3>
+                    <p>Complete mathematical foundation - derivations, proofs, and formal verification.</p>
+                </a>
+                <a href="https://fractaldevteam.github.io/turing/" class="link-card">
+                    <h3>P vs NP Explorer</h3>
+                    <p>Interactive visualizations - Turing encoding, spectral gaps, the Six Guardians in action.</p>
+                </a>
+                <a href="https://github.com/FractalDevTeam" class="link-card">
+                    <h3>GitHub</h3>
+                    <p>Source code, Lean 4 proofs, Coq formalizations, and all research data.</p>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>Principia Fractalis - Emergence</p>
+        <p>Released under CC0 1.0 Universal - Public Domain</p>
+        <p style="color: #7c3aed; font-size: 0.9em; margin-top: 10px;">Data from Pablo Cohen's work</p>
+    </footer>
+</body>
+</html>
